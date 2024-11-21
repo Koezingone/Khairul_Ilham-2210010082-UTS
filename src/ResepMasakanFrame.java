@@ -7,13 +7,38 @@
  *
  * @author ACER
  */
+import java.util.HashMap;
+import java.util.Map;
+
 public class ResepMasakanFrame extends javax.swing.JFrame {
 
+    private Map<String, String> resepMap = new HashMap<>();
     /**
      * Creates new form ResepMasakanFrame
      */
     public ResepMasakanFrame() {
         initComponents();
+        initResep();
+        masakanList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+        masakanListValueChanged(evt);
+        }
+    });
+    }
+    
+    private void initResep() {
+        // Tambahkan data bahan dan cara memasak
+        resepMap.put("Ayam Bakar", "Bahan:\n- Ayam\n- Bumbu bakar\n- Kecap manis\n\nCara Memasak:\n1. Bersihkan ayam.\n2. Lumuri ayam dengan bumbu.\n3. Panggang ayam hingga matang.");
+        resepMap.put("Sate Ayam", "Bahan:\n- Ayam\n- Tusuk sate\n- Bumbu kacang\n\nCara Memasak:\n1. Potong ayam kecil-kecil.\n2. Tusuk ayam dengan tusuk sate.\n3. Panggang sate dan sajikan dengan bumbu kacang.");
+        resepMap.put("Ayam Goreng", "Bahan:\n- Ayam\n- Bumbu marinasi (garam, kunyit, bawang putih)\n- Minyak untuk menggoreng\n\nCara Memasak:\n1. Bersihkan ayam.\n2. Lumuri ayam dengan bumbu marinasi dan diamkan selama 30 menit.\n3. Goreng ayam hingga matang dan berwarna keemasan.");
+        resepMap.put("Soto Ayam", "Bahan:\n- Ayam\n- Bumbu soto (kunyit, bawang putih, bawang merah, serai, daun jeruk)\n- Toge, telur rebus, dan soun (pelengkap)\n\nCara Memasak:\n1. Rebus ayam hingga matang, lalu suwir.\n2. Tumis bumbu soto hingga harum, lalu masukkan ke rebusan ayam.\n3. Sajikan dengan pelengkap dan kuah soto.");
+        resepMap.put("Rendang Daging", "Bahan:\n- Daging sapi\n- Santan\n- Bumbu rendang (cabai, bawang, lengkuas, serai, daun kunyit)\n\nCara Memasak:\n1. Tumis bumbu hingga harum.\n2. Masukkan daging dan santan, aduk rata.\n3. Masak dengan api kecil hingga bumbu meresap dan daging empuk.");
+        resepMap.put("Sop Buntut", "Bahan:\n- Buntut sapi\n- Wortel, kentang, dan daun bawang\n- Bumbu sop (bawang putih, pala, cengkeh)\n\nCara Memasak:\n1. Rebus buntut sapi hingga empuk.\n2. Masukkan sayuran dan bumbu ke dalam rebusan buntut.\n3. Masak hingga semua bahan matang, sajikan hangat.");
+        resepMap.put("Steak", "Bahan:\n- Daging sapi (steak)\n- Garam dan lada\n- Saus steak siap saji\n\nCara Memasak:\n1. Lumuri daging dengan garam dan lada.\n2. Panggang di wajan atau pemanggang hingga tingkat kematangan sesuai selera.\n3. Sajikan dengan saus steak dan pelengkap.");
+        resepMap.put("Ikan Goreng", "Bahan:\n- Ikan\n- Bumbu marinasi (garam, kunyit, bawang putih)\n- Minyak untuk menggoreng\n\nCara Memasak:\n1. Bersihkan ikan.\n2. Lumuri ikan dengan bumbu marinasi dan diamkan selama 15 menit.\n3. Goreng ikan hingga matang dan renyah.");
+        resepMap.put("Ikan Bakar", "Bahan:\n- Ikan\n- Bumbu bakar (cabai, bawang putih, kecap manis, jeruk nipis)\n\nCara Memasak:\n1. Bersihkan ikan.\n2. Lumuri ikan dengan bumbu bakar.\n3. Panggang ikan hingga matang, bolak-balik agar tidak gosong.");
+
+        // Tambahkan resep lain sesuai kebutuhan
     }
 
     /**
@@ -39,6 +64,7 @@ public class ResepMasakanFrame extends javax.swing.JFrame {
         hapusButton = new javax.swing.JButton();
         eksporButton = new javax.swing.JButton();
         imporButton = new javax.swing.JButton();
+        exitButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,7 +93,9 @@ public class ResepMasakanFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(masakanList);
 
         jTextArea1.setColumns(20);
+        jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
+        jTextArea1.setWrapStyleWord(true);
         jScrollPane2.setViewportView(jTextArea1);
 
         tambahButton.setBackground(new java.awt.Color(153, 255, 153));
@@ -91,12 +119,37 @@ public class ResepMasakanFrame extends javax.swing.JFrame {
         hapusButton.setBackground(new java.awt.Color(255, 102, 102));
         hapusButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         hapusButton.setText("HAPUS");
+        hapusButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hapusButtonActionPerformed(evt);
+            }
+        });
 
         eksporButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         eksporButton.setText("EKSPOR");
+        eksporButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eksporButtonActionPerformed(evt);
+            }
+        });
 
         imporButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         imporButton.setText("IMPOR");
+        imporButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imporButtonActionPerformed(evt);
+            }
+        });
+
+        exitButton.setBackground(new java.awt.Color(0, 0, 0));
+        exitButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        exitButton.setForeground(new java.awt.Color(255, 255, 255));
+        exitButton.setText("KELUAR");
+        exitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -111,18 +164,18 @@ public class ResepMasakanFrame extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addGap(100, 100, 100)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(eksporButton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(imporButton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(tambahButton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(53, 53, 53)
                                 .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(51, 51, 51)
-                                .addComponent(hapusButton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(hapusButton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(eksporButton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(imporButton, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(31, 31, 31)
@@ -137,7 +190,7 @@ public class ResepMasakanFrame extends javax.swing.JFrame {
                 .addGap(62, 62, 62)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(cariInput, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cariInput, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cariButton, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(62, 62, 62)
                 .addComponent(jLabel2)
@@ -151,12 +204,14 @@ public class ResepMasakanFrame extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tambahButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(hapusButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(hapusButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(eksporButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
                         .addComponent(imporButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -179,17 +234,255 @@ public class ResepMasakanFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cariButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cariButtonActionPerformed
-        // TODO add your handling code here:
+     String query = cariInput.getText().trim();
+    if (!query.isEmpty()) {
+        StringBuilder hasil = new StringBuilder("Hasil pencarian:\n");
+        for (int i = 0; i < masakanList.getModel().getSize(); i++) {
+            String item = masakanList.getModel().getElementAt(i);
+            if (item.toLowerCase().contains(query.toLowerCase())) {
+                hasil.append("- ").append(item).append("\n");
+            }
+        }
+        if (hasil.toString().equals("Hasil pencarian:\n")) {
+            hasil.append("Tidak ditemukan.");
+        }
+        jTextArea1.setText(hasil.toString());
+    } else {
+        javax.swing.JOptionPane.showMessageDialog(this, "Masukkan kata kunci untuk mencari.");
+    }
     }//GEN-LAST:event_cariButtonActionPerformed
 
     private void tambahButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahButtonActionPerformed
-        // TODO add your handling code here:
+    // Meminta nama masakan
+    String namaMasakan = javax.swing.JOptionPane.showInputDialog(this, "Masukkan nama masakan baru:");
+    if (namaMasakan != null && !namaMasakan.trim().isEmpty()) {
+        // Meminta bahan masakan
+        String bahanMasakan = javax.swing.JOptionPane.showInputDialog(this, "Masukkan bahan untuk " + namaMasakan + " (pisahkan dengan enter):");
+        if (bahanMasakan != null && !bahanMasakan.trim().isEmpty()) {
+            // Meminta cara memasak
+            String caraMemasak = javax.swing.JOptionPane.showInputDialog(this, "Masukkan cara memasak untuk " + namaMasakan + ":");
+            if (caraMemasak != null && !caraMemasak.trim().isEmpty()) {
+                // Menambahkan masakan ke daftar dan map
+                javax.swing.DefaultListModel<String> model = new javax.swing.DefaultListModel<>();
+                for (int i = 0; i < masakanList.getModel().getSize(); i++) {
+                    model.addElement(masakanList.getModel().getElementAt(i));
+                }
+                model.addElement(namaMasakan.trim());
+                masakanList.setModel(model);
+
+                // Simpan bahan dan cara memasak ke map
+                String resep = "Bahan:\n" + bahanMasakan + "\n\nCara Memasak:\n" + caraMemasak;
+                resepMap.put(namaMasakan.trim(), resep);
+
+                javax.swing.JOptionPane.showMessageDialog(this, "Masakan berhasil ditambahkan.");
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Cara memasak tidak boleh kosong.");
+            }
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Bahan tidak boleh kosong.");
+        }
+    } else {
+        javax.swing.JOptionPane.showMessageDialog(this, "Nama masakan tidak boleh kosong.");
+    }
     }//GEN-LAST:event_tambahButtonActionPerformed
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
-        // TODO add your handling code here:
+    String selectedMasakan = masakanList.getSelectedValue();
+    if (selectedMasakan == null) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Pilih masakan yang ingin diedit.");
+        return;
+    }
+
+    String resepLama = resepMap.get(selectedMasakan);
+    if (resepLama == null || !resepLama.contains("\n\nCara Memasak:")) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Format resep tidak valid.");
+        return;
+    }
+
+    // Pisahkan bahan dan cara memasak
+    String[] bagianResep = resepLama.split("\n\nCara Memasak:");
+    String bahanLama = bagianResep[0].replace("Bahan:\n", "").trim();
+    String caraLama = bagianResep.length > 1 ? bagianResep[1].trim() : "";
+
+    // Masukkan nama masakan baru
+    String namaBaru = javax.swing.JOptionPane.showInputDialog(this, "Masukkan nama masakan baru:", selectedMasakan);
+    if (namaBaru != null && !namaBaru.trim().isEmpty()) {
+        // Masukkan bahan baru
+        String bahanBaru = javax.swing.JOptionPane.showInputDialog(this, "Masukkan bahan baru (pisahkan dengan enter):", bahanLama);
+        if (bahanBaru != null && !bahanBaru.trim().isEmpty()) {
+            // Masukkan cara memasak baru
+            String caraBaru = javax.swing.JOptionPane.showInputDialog(this, "Masukkan cara memasak baru:", caraLama);
+            if (caraBaru != null && !caraBaru.trim().isEmpty()) {
+                // Format resep baru
+                String resepBaru = String.format(
+                    "Bahan:%n%s%n%nCara Memasak:%n%s",
+                    bahanBaru.trim(),
+                    caraBaru.trim()
+                );
+
+                // Update resep dan JList
+                resepMap.remove(selectedMasakan);
+                resepMap.put(namaBaru.trim(), resepBaru);
+
+                javax.swing.DefaultListModel<String> model = new javax.swing.DefaultListModel<>();
+                for (int i = 0; i < masakanList.getModel().getSize(); i++) {
+                    if (masakanList.getModel().getElementAt(i).equals(selectedMasakan)) {
+                        model.addElement(namaBaru.trim());
+                    } else {
+                        model.addElement(masakanList.getModel().getElementAt(i));
+                    }
+                }
+                masakanList.setModel(model);
+
+                // Tampilkan resep baru di JTextArea
+                jTextArea1.setText(resepMap.get(namaBaru.trim()));
+
+                javax.swing.JOptionPane.showMessageDialog(this, "Masakan berhasil diedit.");
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Cara memasak tidak boleh kosong.");
+            }
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Bahan tidak boleh kosong.");
+        }
+    } else {
+        javax.swing.JOptionPane.showMessageDialog(this, "Nama masakan tidak boleh kosong.");
+    }
     }//GEN-LAST:event_editButtonActionPerformed
 
+    private void hapusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusButtonActionPerformed
+    int selectedIndex = masakanList.getSelectedIndex();
+    if (selectedIndex != -1) {
+        javax.swing.DefaultListModel<String> model = new javax.swing.DefaultListModel<>();
+        for (int i = 0; i < masakanList.getModel().getSize(); i++) {
+            if (i != selectedIndex) {
+                model.addElement(masakanList.getModel().getElementAt(i));
+            }
+        }
+        masakanList.setModel(model);
+        javax.swing.JOptionPane.showMessageDialog(this, "Masakan berhasil dihapus.");
+    } else {
+        javax.swing.JOptionPane.showMessageDialog(this, "Pilih masakan yang ingin dihapus.");
+    }
+    }//GEN-LAST:event_hapusButtonActionPerformed
+
+    private void eksporButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eksporButtonActionPerformed
+    String selectedMasakan = masakanList.getSelectedValue();
+    if (selectedMasakan == null) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Pilih masakan yang ingin diekspor.");
+        return;
+    }
+
+    javax.swing.JFileChooser fileChooser = new javax.swing.JFileChooser();
+    fileChooser.setDialogTitle("Simpan File Resep");
+    
+    // Menambahkan filter file untuk .txt dan .csv
+    fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Text Files (*.txt)", "txt"));
+    fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("CSV Files (*.csv)", "csv"));
+
+    int result = fileChooser.showSaveDialog(this);
+
+    if (result == javax.swing.JFileChooser.APPROVE_OPTION) {
+        java.io.File file = fileChooser.getSelectedFile();
+        String filePath = file.getAbsolutePath();
+
+        // Mendapatkan ekstensi berdasarkan filter yang dipilih
+        String fileExtension = ((javax.swing.filechooser.FileNameExtensionFilter) fileChooser.getFileFilter()).getExtensions()[0];
+        if (!filePath.endsWith("." + fileExtension)) {
+            filePath += "." + fileExtension; // Tambahkan ekstensi jika belum ada
+        }
+
+        try (java.io.PrintWriter writer = new java.io.PrintWriter(filePath)) {
+            String resep = resepMap.get(selectedMasakan);
+
+            if (fileExtension.equals("csv")) {
+                // Ekspor ke format CSV
+                writer.println("Masakan,Resep");
+                writer.printf("\"%s\",\"%s\"%n", selectedMasakan, resep.replace("\n", "\\n"));
+            } else {
+                // Ekspor ke format TXT
+                writer.println(selectedMasakan);
+                writer.println(resep);
+                writer.println("===END===");
+            }
+
+            javax.swing.JOptionPane.showMessageDialog(this, "Resep berhasil diekspor ke file.");
+        } catch (java.io.IOException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menyimpan file: " + e.getMessage());
+        }
+    }
+    }//GEN-LAST:event_eksporButtonActionPerformed
+
+    private void imporButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imporButtonActionPerformed
+    javax.swing.JFileChooser fileChooser = new javax.swing.JFileChooser();
+    int result = fileChooser.showOpenDialog(this);
+
+    if (result == javax.swing.JFileChooser.APPROVE_OPTION) {
+        java.io.File file = fileChooser.getSelectedFile();
+        try (java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.FileReader(file))) {
+            String line;
+            String currentMasakan = null;
+            StringBuilder currentResep = new StringBuilder();
+            javax.swing.DefaultListModel<String> model = new javax.swing.DefaultListModel<>();
+
+            // Tambahkan item dari JList saat ini ke model
+            for (int i = 0; i < masakanList.getModel().getSize(); i++) {
+                model.addElement(masakanList.getModel().getElementAt(i));
+            }
+
+            while ((line = reader.readLine()) != null) {
+                if (line.equals("===END===")) {
+                    if (currentMasakan != null && currentResep.length() > 0) {
+                        if (resepMap.containsKey(currentMasakan)) {
+                            int pilihan = javax.swing.JOptionPane.showConfirmDialog(
+                                this,
+                                "Resep untuk '" + currentMasakan + "' sudah ada. Ganti dengan data yang baru?",
+                                "Konfirmasi",
+                                javax.swing.JOptionPane.YES_NO_OPTION
+                            );
+                            if (pilihan == javax.swing.JOptionPane.NO_OPTION) {
+                                currentMasakan = null;
+                                currentResep.setLength(0);
+                                continue;
+                            }
+                        }
+                        resepMap.put(currentMasakan, currentResep.toString().trim());
+                        if (!model.contains(currentMasakan)) {
+                            model.addElement(currentMasakan);
+                        }
+                    }
+                    currentMasakan = null;
+                    currentResep.setLength(0); // Reset untuk resep berikutnya
+                } else if (currentMasakan == null) {
+                    currentMasakan = line; // Baris pertama adalah nama masakan
+                } else {
+                    currentResep.append(line).append("\n");
+                }
+            }
+
+            // Update JList dengan data baru
+            masakanList.setModel(model);
+            javax.swing.JOptionPane.showMessageDialog(this, "Data berhasil diimpor dari file.");
+        } catch (java.io.IOException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat membaca file: " + e.getMessage());
+        }
+    }
+    }//GEN-LAST:event_imporButtonActionPerformed
+
+    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
+    System.exit(0);
+    }//GEN-LAST:event_exitButtonActionPerformed
+
+    
+    private void masakanListValueChanged(javax.swing.event.ListSelectionEvent evt) {                                         
+    if (!evt.getValueIsAdjusting()) {
+        String selectedMasakan = masakanList.getSelectedValue();
+        if (selectedMasakan != null && resepMap.containsKey(selectedMasakan)) {
+            jTextArea1.setText(resepMap.get(selectedMasakan));
+        } else {
+            jTextArea1.setText("Resep tidak tersedia untuk masakan ini.");
+        }
+    }
+}
     /**
      * @param args the command line arguments
      */
@@ -230,6 +523,7 @@ public class ResepMasakanFrame extends javax.swing.JFrame {
     private javax.swing.JTextField cariInput;
     private javax.swing.JButton editButton;
     private javax.swing.JButton eksporButton;
+    private javax.swing.JButton exitButton;
     private javax.swing.JButton hapusButton;
     private javax.swing.JButton imporButton;
     private javax.swing.JLabel jLabel1;
